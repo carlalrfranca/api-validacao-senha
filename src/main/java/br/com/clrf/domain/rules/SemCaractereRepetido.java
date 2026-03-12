@@ -3,7 +3,7 @@ package br.com.clrf.domain.rules;
 public class SemCaractereRepetido implements  RegraSenha {
 
     @Override
-    public boolean validar(String senha) {
+    public boolean validaSenha(String senha) {
         int indice = 0;
 
         while(indice < senha.length()) {

@@ -1,5 +1,6 @@
 package br.com.clrf.domain.rules;
 
 public interface RegraSenha {
-    boolean validar(String senha);
+
+    boolean validaSenha(String senha);
 }

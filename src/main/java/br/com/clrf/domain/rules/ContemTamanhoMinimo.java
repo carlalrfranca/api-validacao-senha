@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ContemTamanhoMinimo implements RegraSenha {
 
+    private final int tamanhoMinimo;
+
     @Override
-    public boolean validar(String senha) {
-        int indice = 0;
-        while (indice < senha.length()) {
-            if (indice >= 9) {
-                return true;
-            } indice++;
+    public boolean validaSenha(String senha) {
+        int tamanho = senha.length();
+        while (tamanho >= tamanhoMinimo) {
+            return true;
         } return false;
     }
 }
