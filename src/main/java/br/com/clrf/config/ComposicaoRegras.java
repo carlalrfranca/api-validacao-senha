@@ -3,6 +3,7 @@ package br.com.clrf.config;
 import br.com.clrf.domain.policy.AplicaPoliticaRegras;
 import br.com.clrf.domain.policy.PoliticaRegra;
 import br.com.clrf.domain.rules.*;
+import br.com.clrf.service.OrquestraRegras;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,5 +28,10 @@ public class ComposicaoRegras {
                 new SemCaractereRepetido()
         );
         return new AplicaPoliticaRegras(regras);
+    }
+
+    @Bean
+    public OrquestraRegras orquestraRegras(PoliticaRegra politicaSenha) {
+        return new OrquestraRegras(politicaSenha);
     }
 }

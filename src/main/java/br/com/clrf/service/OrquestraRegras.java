@@ -17,7 +17,7 @@ public class OrquestraRegras {
         Optional<String> regraNaoSatisfeita = regras.satifazRegra(senha);
 
         if(regraNaoSatisfeita.isPresent()) {
-            log.warn("A senha não atende a regra | regra={}", regraNaoSatisfeita.get());
+            log.warn("A senha não atende aos requisitos : regra = {}", regraNaoSatisfeita.get());
         }
         return regraNaoSatisfeita;
     }
