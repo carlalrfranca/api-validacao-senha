@@ -13,7 +13,7 @@
     </parent>
 
     <groupId>br.com.clrf</groupId>
-    <artifactId>password-validation</artifactId>
+    <artifactId>api-validacao-senha</artifactId>
     <version>0.0.1</version>
     <name>password-validation</name>
     <description>Password validation API</description>

@@ -21,7 +21,7 @@ A senha recebida será considerada válida caso:
 
 ### Endpoint
 
-POST `/api-password/validate`
+POST `/api-senha/valida`
 
 URL base:
 
@@ -90,10 +90,4 @@ mvn clean install
 
 ```
 mvn spring-boot:run
-```
-
-A aplicação será iniciada em:
-
-```
-http://localhost:8080
 ```
