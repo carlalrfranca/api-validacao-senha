@@ -3,7 +3,7 @@ package br.com.clrf.domain.rules;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class TamanhoMinimo implements RegraSenha {
+public class ContemTamanhoMinimo implements RegraSenha {
 
     @Override
     public boolean validar(String senha) {
