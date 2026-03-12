@@ -2,7 +2,7 @@ package br.com.clrf.domain.policy;
 
 import java.util.Optional;
 
-public interface PasswordPolicy {
+public interface PoliticaSenha {
 
-    Optional<String> passwordValidate(String password);
+    Optional<String> validaSenha(String senha);
 }

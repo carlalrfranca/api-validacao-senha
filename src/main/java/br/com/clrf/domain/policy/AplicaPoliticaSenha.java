@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class CompositePoliticaSenha implements PoliticaSenha {
+public class AplicaPoliticaSenha implements PoliticaSenha {
 
     private final List<PoliticaSenha> regras;
 
