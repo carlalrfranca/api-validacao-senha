@@ -5,25 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ApenasCaracteresPermitidosTeste {
+public class ContemLetraMaiusculaTeste {
 
-    private static final String ESPECIAL = "!@#$%^&*()-+";
-    private ApenasCaracteresPermitidos regra;
+    private ContemLetraMaiuscula regra;
 
     @BeforeEach
     void setUp() {
-        regra = new ApenasCaracteresPermitidos(ESPECIAL);
+        regra = new ContemLetraMaiuscula();
     }
 
     @Test
-    void validaTrueParaSenhaComCaracteresPermitidos() {
+    void validaTrueParaSenhaComLetraMaiuscula() {
         boolean valido = regra.validaSenha("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
-    void validaFalseParaSenhaComCaracteresPermitidos() {
-        boolean invalido = regra.validaSenha("abc\\tdef");
+    void validaFalseParaSenhaComLetraMaiuscula() {
+        boolean invalido = regra.validaSenha("atpfok76@f");
         assertFalse(invalido);
     }
 }

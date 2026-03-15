@@ -5,25 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ApenasCaracteresPermitidosTeste {
+public class SemCaractereRepetidoTeste {
 
-    private static final String ESPECIAL = "!@#$%^&*()-+";
-    private ApenasCaracteresPermitidos regra;
+    private SemCaractereRepetido regra;
 
     @BeforeEach
     void setUp() {
-        regra = new ApenasCaracteresPermitidos(ESPECIAL);
+        regra = new SemCaractereRepetido();
     }
 
     @Test
-    void validaTrueParaSenhaComCaracteresPermitidos() {
+    void validaTrueParaSenhaSemCaractereRepetido() {
         boolean valido = regra.validaSenha("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
-    void validaFalseParaSenhaComCaracteresPermitidos() {
-        boolean invalido = regra.validaSenha("abc\\tdef");
+    void validaFalseParaSenhaComCaractereRepetido() {
+        boolean invalido = regra.validaSenha("AbTp9!foA");
         assertFalse(invalido);
     }
 }

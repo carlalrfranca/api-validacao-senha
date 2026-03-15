@@ -5,25 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ApenasCaracteresPermitidosTeste {
+public class ContemTamanhoMinimoTeste {
 
-    private static final String ESPECIAL = "!@#$%^&*()-+";
-    private ApenasCaracteresPermitidos regra;
+    private ContemTamanhoMinimo regra;
 
     @BeforeEach
     void setUp() {
-        regra = new ApenasCaracteresPermitidos(ESPECIAL);
+        regra = new ContemTamanhoMinimo(9);
     }
 
     @Test
-    void validaTrueParaSenhaComCaracteresPermitidos() {
+    void validaTrueParaSenhaComTamanhoMinimo() {
         boolean valido = regra.validaSenha("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
-    void validaFalseParaSenhaComCaracteresPermitidos() {
-        boolean invalido = regra.validaSenha("abc\\tdef");
+    void validaFalseParaSenhaSemTamanhoMinimo() {
+        boolean invalido = regra.validaSenha("AbTp9!f");
         assertFalse(invalido);
     }
 }
