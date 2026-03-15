@@ -91,3 +91,11 @@ mvn clean install
 ```
 mvn spring-boot:run
 ```
+
+### Referências
+
+- Sobre o case: https://github.com/itidigital/backend-challenge
+- Sobre testes unitários: https://zup.com.br/blog/testes-unitarios/ , https://www.freecodecamp.org/news/java-unit-testing/ , https://zup.com.br/blog/testes-unitarios/
+- Diferenças entre teste unitário e integrado: https://pt.stackoverflow.com/questions/115146/qual-a-diferen%C3%A7a-entre-teste-unit%C3%A1rio-e-teste-integrado
+- Sobre princípios SOLID: https://pt.stackoverflow.com/questions/178718/o-que-s%C3%A3o-os-princ%C3%ADpios-solid
+- Sobre Composição: https://www.geeksforgeeks.org/java/composite-design-pattern-in-java/
