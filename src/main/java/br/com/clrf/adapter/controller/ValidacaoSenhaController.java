@@ -37,4 +37,3 @@ public class ValidacaoSenhaController {
         return ResponseEntity.ok(new RespostaValidacao(senhaValida, mensagem));
     }
 }
-
