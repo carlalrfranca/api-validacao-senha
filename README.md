@@ -21,7 +21,7 @@ A senha recebida será considerada válida caso:
 
 ### Endpoint
 
-POST `/api-senha/valida`
+POST `/senhas/validacoes`
 
 URL base:
 
@@ -38,15 +38,15 @@ Exemplo de requisição:
 ```bash
 curl -X POST http://localhost:8080/api-password/validate \
   -H "Content-Type: application/json" \
-  -d '{"password":"AbTp9!fok"}'
+  -d '{"senha":"AbTp9!fok"}'
 ```
 
 Resposta esperada:
 
 ```json
 {
-  "valid": true,
-  "message": "Password validated"
+  "valido": true,
+  "messagem": "Senha validada"
 }
 ```
 
@@ -59,15 +59,15 @@ Exemplo de requisição:
 ```bash
 curl -X POST http://localhost:8080/api-password/validate \
   -H "Content-Type: application/json" \
-  -d '{"password":"AbTp9 fok"}'
+  -d '{"senha":"AbTp9 fok"}'
 ```
 
 Resposta esperada:
 
 ```json
 {
-  "valid": false,
-  "message": "Password must not contain whitespace characters"
+  "valido": false,
+  "mensagem": "A senha deve conter no mínimo 9 caracteres."
 }
 ```
 
