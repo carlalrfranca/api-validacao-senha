@@ -2,15 +2,16 @@ package br.com.clrf.domain.rules;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ContemLetraMinusculaTeste {
 
-    private ContemLetraMaiuscula regra;
+    private ContemLetraMinuscula regra;
 
     @BeforeEach
     void setUp() {
-        regra = new ContemLetraMaiuscula();
+        regra = new ContemLetraMinuscula();
     }
 
     @Test
@@ -22,6 +23,6 @@ public class ContemLetraMinusculaTeste {
     @Test
     void validaFalseParaSenhaSemLetraMinuscula() {
         boolean invalido = regra.validaSenha("ABC123HUH!");
-        assertTrue(invalido);
+        assertFalse(invalido);
     }
 }
