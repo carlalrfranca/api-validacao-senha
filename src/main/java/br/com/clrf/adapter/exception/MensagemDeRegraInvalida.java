@@ -27,7 +27,6 @@ public enum MensagemDeRegraInvalida {
             if (regra.getNomeRegra().equals(nomeRegra)) {
                 return regra.getMensagem();
             } indice++;
-        }
-        return "Regra de validação desconhecida.";
+        } return "Regra de validação desconhecida.";
     }
 }
