@@ -1,4 +1,4 @@
-package br.com.clrf.service;
+package br.com.clrf.useCase;
 
 import br.com.clrf.domain.policy.PoliticaRegra;
 import lombok.RequiredArgsConstructor;
@@ -9,12 +9,12 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrquestraRegras {
+public class OrquestradorRegras {
 
-    private final PoliticaRegra regras;
+    private final PoliticaRegra politicaRegra;
 
     public Optional<String> executaRegras(String senha) {
-        Optional<String> regraNaoSatisfeita = regras.satifazRegra(senha);
+        Optional<String> regraNaoSatisfeita = politicaRegra.satisfazRegra(senha);
 
         if(regraNaoSatisfeita.isPresent()) {
             log.warn("A senha não atende aos requisitos : regra = {}", regraNaoSatisfeita.get());

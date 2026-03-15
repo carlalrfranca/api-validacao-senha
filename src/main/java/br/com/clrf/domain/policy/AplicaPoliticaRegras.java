@@ -11,7 +11,7 @@ public class AplicaPoliticaRegras implements PoliticaRegra {
     private final List<RegraSenha> regras;
 
     @Override
-    public Optional<String> satifazRegra(String senha) {
+    public Optional<String> satisfazRegra(String senha) {
         int indice = 0;
 
         while (indice < regras.size()) {

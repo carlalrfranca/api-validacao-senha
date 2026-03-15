@@ -8,7 +8,9 @@ public class SemCaractereRepetido implements  RegraSenha {
 
         while(indice < senha.length()) {
             char caractere = senha.charAt(indice);
+
             int indiceComparacao = indice + 1;
+
             while (indiceComparacao < senha.length()) {
                 if (caractere == senha.charAt(indiceComparacao)) {
                     return false;

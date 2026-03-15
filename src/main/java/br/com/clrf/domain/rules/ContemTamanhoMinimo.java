@@ -9,10 +9,11 @@ public class ContemTamanhoMinimo implements RegraSenha {
 
     @Override
     public boolean validaSenha(String senha) {
+
         int tamanho = senha.length();
-        while (tamanho >= tamanhoMinimo) {
+
+        if (tamanho >= tamanhoMinimo) {
             return true;
         } return false;
     }
 }
-

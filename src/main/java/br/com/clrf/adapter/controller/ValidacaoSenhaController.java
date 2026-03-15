@@ -3,7 +3,7 @@ package br.com.clrf.adapter.controller;
 import br.com.clrf.adapter.dto.RequisicaoSenha;
 import br.com.clrf.adapter.dto.RespostaValidacao;
 import br.com.clrf.adapter.exception.MensagemDeRegraInvalida;
-import br.com.clrf.service.OrquestraRegras;
+import br.com.clrf.useCase.OrquestradorRegras;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api-senha")
+@RequestMapping("/senhas")
 @RequiredArgsConstructor
-public class PontoDeEntrada {
+public class ValidacaoSenhaController {
 
-    private final OrquestraRegras orquestraRegras;
+    private final OrquestradorRegras orquestradorRegras;
 
-    @PostMapping("/valida")
-    public ResponseEntity<RespostaValidacao> validaSenha (
-            @Valid @RequestBody RequisicaoSenha requere) {
-        Optional<String> regraNaoSatisfeita = orquestraRegras.executaRegras(requere.password());
+    @PostMapping("/validacoes")
+    public ResponseEntity<RespostaValidacao> validarSenha (
+            @Valid @RequestBody RequisicaoSenha requisicaoSenha) {
+
+        Optional<String> regraNaoSatisfeita = orquestradorRegras.executaRegras(requisicaoSenha.senha());
+
         boolean senhaValida = regraNaoSatisfeita.isEmpty();
-        String mensagem = senhaValida ? "Senha validada com sucesso" : MensagemDeRegraInvalida.extraiRegra(regraNaoSatisfeita.get()
-        );
+
+        String mensagem;
+        if (senhaValida) {
+            mensagem = "Senha validada com sucesso";
+        } else {
+            mensagem = MensagemDeRegraInvalida.extraiRegra(regraNaoSatisfeita.get());
+        }
         return ResponseEntity.ok(new RespostaValidacao(senhaValida, mensagem));
     }
 }
-
