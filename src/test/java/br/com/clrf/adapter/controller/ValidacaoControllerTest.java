@@ -25,7 +25,7 @@ class ValidacaoControllerTest {
     void retornaSenhaValida() {
         Mockito.when(validadorCredenciaisService.executaRegras("AbTp9!fok"))
                 .thenReturn(Optional.empty());
-        var requisicao = new CredenciaisEntrada("AbTp9!fok");
+        var requisicao = new CredenciaisEntrada("AbTp9!fok", "teste@organizacao.com");
         var resposta = controller.validarSenha(requisicao);
         assertTrue(resposta.getBody().valido());
     }
@@ -34,7 +34,7 @@ class ValidacaoControllerTest {
     void retornaSenhaInvalida() {
         Mockito.when(validadorCredenciaisService.executaRegras("AbTp9 fok"))
                 .thenReturn(Optional.of("SemEspacamento"));
-        var requisicao = new CredenciaisEntrada("AbTp9 fok");
+        var requisicao = new CredenciaisEntrada("AbTp9 fok", ".12@organizacao..co");
         var resposta = controller.validarSenha(requisicao);
         assertFalse(resposta.getBody().valido());
     }

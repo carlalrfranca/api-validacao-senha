@@ -16,10 +16,10 @@ public class ComposicaoRegrasSenha {
     private static final int TAMANHO_MINIMO = 9;
     private static final String ESPECIAL = "!@#$%^&*()-+";
 
-    @Bean
+    @Bean(name = "politicaSenha")
     public PoliticaRegra politicaSenha() {
 
-        List<RegraValidacao> regras = List.of(
+        List<RegraValidacao> regrasSenha = List.of(
                 new SemEspacamento(),
                 new ApenasCaracteresPermitidos(ESPECIAL),
                 new TamanhoMinimo(TAMANHO_MINIMO),
@@ -29,6 +29,6 @@ public class ComposicaoRegrasSenha {
                 new ContemCaractereEspecial(ESPECIAL),
                 new SemCaractereRepetido()
         );
-        return new AplicaPoliticaRegras(regras);
+        return new AplicaPoliticaRegras(regrasSenha);
     }
 }

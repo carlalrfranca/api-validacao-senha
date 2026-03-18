@@ -2,6 +2,7 @@ package br.com.clrf.adapter.controller;
 
 import br.com.clrf.adapter.dto.CredenciaisEntrada;
 import br.com.clrf.adapter.dto.ValidacaoResultado;
+import br.com.clrf.adapter.response.MensagemEmail;
 import br.com.clrf.adapter.response.MensagemSenha;
 import br.com.clrf.usecase.ValidadorCredenciaisService;
 import jakarta.validation.Valid;
@@ -14,26 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/senhas")
+@RequestMapping("/credenciais")//@RequestMapping("/senhas")
 @RequiredArgsConstructor
 public class ValidacaoController {
 
     private final ValidadorCredenciaisService validadorCredenciaisService;
 
     @PostMapping("/validacoes")
-    public ResponseEntity<ValidacaoResultado> validarSenha (
-            @Valid @RequestBody CredenciaisEntrada credenciaisEntrada) {
+    public ResponseEntity<ValidacaoResultado> validar (
+            @Valid @RequestBody CredenciaisEntrada credenciais) {
 
-        Optional<String> regraNaoSatisfeita = validadorCredenciaisService.executaRegras(credenciaisEntrada.senha());
+        Optional<String> erroSenha = validadorCredenciaisService.executaRegrasSenha(credenciais.senha());
+        Optional<String> erroEmail = validadorCredenciaisService.executaRegrasEmail(credenciais.email());
 
-        boolean senhaValida = regraNaoSatisfeita.isEmpty();
+        boolean valido = erroSenha.isEmpty() && erroEmail.isEmpty();
 
         String mensagem;
-        if (senhaValida) {
-            mensagem = "Senha validada com sucesso";
-        } else {
-            mensagem = MensagemSenha.extraiRegra(regraNaoSatisfeita.get());
-        }
-        return ResponseEntity.ok(new ValidacaoResultado(senhaValida, mensagem));
+        if (valido)
+            mensagem = "Credenciais validadas com sucesso";
+        else if (erroSenha.isPresent())
+            mensagem = MensagemSenha.extraiRegra(erroSenha.get());
+        else
+            mensagem = MensagemEmail.extraiRegra(erroEmail.get());
+
+        return ResponseEntity.ok(new ValidacaoResultado(valido, mensagem));
     }
 }
