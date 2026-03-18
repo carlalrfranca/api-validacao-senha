@@ -5,7 +5,7 @@ import br.com.clrf.domain.comuns.rules.RegraValidacao;
 public class ContemDigito implements RegraValidacao {
 
     @Override
-    public boolean validaSenha(String senha) {
+    public boolean valida(String senha) {
         int indice = 0;
 
         while (indice < senha.length()) {

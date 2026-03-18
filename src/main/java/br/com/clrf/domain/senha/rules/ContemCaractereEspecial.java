@@ -8,7 +8,7 @@ public class ContemCaractereEspecial implements RegraValidacao {
     private final String caracteresEspeciais;
 
     @Override
-    public boolean validaSenha(String senha) {
+    public boolean valida(String senha) {
         int indice = 0;
 
         while (indice < senha.length()) {

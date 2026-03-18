@@ -8,7 +8,8 @@ public class TamanhoMinimo implements RegraValidacao {
     private final int tamanhoMinimoPermitido;
 
     @Override
-    public boolean validaSenha(String senha) {
-        return senha.length() >= tamanhoMinimoPermitido;
+    public boolean valida(String valor) {
+
+        return valor.length() >= tamanhoMinimoPermitido;
     }
 }
