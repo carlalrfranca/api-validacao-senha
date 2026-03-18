@@ -11,13 +11,13 @@ public class AplicaPoliticaRegras implements PoliticaRegra {
     private final List<RegraValidacao> regras;
 
     @Override
-    public Optional<String> satisfazRegra(String senha) {
+    public Optional<String> satisfazRegra(String valor) {
         int indice = 0;
 
         while (indice < regras.size()) {
             RegraValidacao regra = regras.get(indice);
 
-            if (!regra.validaSenha(senha)) {
+            if (!regra.valida(valor)) {
                 return Optional.of(regra.getClass().getSimpleName());
             } indice++;
         } return Optional.empty();
