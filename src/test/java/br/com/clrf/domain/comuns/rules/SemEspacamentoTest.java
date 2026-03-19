@@ -16,13 +16,13 @@ class SemEspacamentoTest {
 
     @Test
     void validaTrueParaSenhaSemEspacamento() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaComEspacamento() {
-        boolean invalido = regra.validaSenha("AbTp9! fok");
+        boolean invalido = regra.valida("AbTp9! fok");
         assertFalse(invalido);
     }
 }

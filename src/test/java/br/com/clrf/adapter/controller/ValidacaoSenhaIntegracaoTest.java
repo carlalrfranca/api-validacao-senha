@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class ValidacaoSenhaIntegracaoTest {
 
-    private static final String ENDPOINT = "/senhas/validacoes";
+    private static final String ENDPOINT = "/credenciais/validacoes";
     private static final MediaType JSON = MediaType.APPLICATION_JSON;
 
     @Autowired
@@ -21,7 +21,7 @@ class ValidacaoSenhaIntegracaoTest {
 
     @Test
     void retornaSenhaValida() throws Exception {
-        String corpo = "{\"senha\":\"AbTp9!fok\"}";
+        String corpo = "{\"senha\":\"AbTp9!fok\",\"email\":\"teste@email.com\"}";
 
         mockMvc.perform(post(ENDPOINT)
                         .contentType(JSON)

@@ -16,13 +16,13 @@ class SemCaractereRepetidoTest {
 
     @Test
     void validaTrueParaSenhaSemCaractereRepetido() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaComCaractereRepetido() {
-        boolean invalido = regra.validaSenha("AbTp9!foA");
+        boolean invalido = regra.valida("AbTp9!foA");
         assertFalse(invalido);
     }
 }

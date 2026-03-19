@@ -17,13 +17,13 @@ class ApenasCaracteresPermitidosTest {
 
     @Test
     void validaTrueParaSenhaComCaracteresPermitidos() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaComCaracteresPermitidos() {
-        boolean invalido = regra.validaSenha("abc\\tdef");
+        boolean invalido = regra.valida("abc\\tdef");
         assertFalse(invalido);
     }
 }

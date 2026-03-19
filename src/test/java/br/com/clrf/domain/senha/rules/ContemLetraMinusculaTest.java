@@ -16,13 +16,13 @@ class ContemLetraMinusculaTest {
 
     @Test
     void validaTrueParaSenhaComLetraMinuscula() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaSemLetraMinuscula() {
-        boolean invalido = regra.validaSenha("ABC123HUH!");
+        boolean invalido = regra.valida("ABC123HUH!");
         assertFalse(invalido);
     }
 }

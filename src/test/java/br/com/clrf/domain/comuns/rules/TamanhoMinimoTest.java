@@ -16,13 +16,13 @@ class TamanhoMinimoTest {
 
     @Test
     void validaTrueParaSenhaComTamanhoMinimo() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaSemTamanhoMinimo() {
-        boolean invalido = regra.validaSenha("AbTp9!f");
+        boolean invalido = regra.valida("AbTp9!f");
         assertFalse(invalido);
     }
 }

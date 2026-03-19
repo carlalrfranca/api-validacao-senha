@@ -17,4 +17,4 @@ public class TldValido implements RegraValidacao {
         return tld.length() >= 2;
     }
 }
-// existe uma tld com tamanho >= 2
+

@@ -6,10 +6,13 @@ public class FormatoBasico implements RegraValidacao {
 
     @Override
     public boolean valida(String valor) {
-        int indiceArroba = valor.indexOf('@');
 
-        return indiceArroba > 0 &&
-                indiceArroba < valor.length() - 1;
+        int indiceArroba = valor.indexOf('@');
+        if(indiceArroba < 0) return false;
+        if (indiceArroba == 0) return false;
+        if (indiceArroba == valor.length() - 1)
+            return false;
+        return true;
     }
 }
 

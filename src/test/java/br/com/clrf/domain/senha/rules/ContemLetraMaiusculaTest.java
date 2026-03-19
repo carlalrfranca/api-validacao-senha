@@ -16,13 +16,13 @@ class ContemLetraMaiusculaTest {
 
     @Test
     void validaTrueParaSenhaComLetraMaiuscula() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaComLetraMaiuscula() {
-        boolean invalido = regra.validaSenha("atpfok76@f");
+        boolean invalido = regra.valida("atpfok76@f");
         assertFalse(invalido);
     }
 }
