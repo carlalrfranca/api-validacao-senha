@@ -16,13 +16,13 @@ class ContemDigitoTest {
 
     @Test
     void validaTrueParaSenhaComDigito() {
-        boolean valido = regra.validaSenha("AbTp9!fok");
+        boolean valido = regra.valida("AbTp9!fok");
         assertTrue(valido);
     }
 
     @Test
     void validaFalseParaSenhaSemDigito() {
-        boolean invalido = regra.validaSenha("AbTp!fok");
+        boolean invalido = regra.valida("AbTp!fok");
         assertFalse(invalido);
     }
 }

@@ -27,17 +27,12 @@ public class ValidacaoController {
 
         Optional<String> erroSenha = validadorCredenciaisService.executaRegrasSenha(credenciais.senha());
         Optional<String> erroEmail = validadorCredenciaisService.executaRegrasEmail(credenciais.email());
-
         boolean valido = erroSenha.isEmpty() && erroEmail.isEmpty();
 
         String mensagem;
-        if (valido)
-            mensagem = "Credenciais validadas com sucesso";
-        else if (erroSenha.isPresent())
-            mensagem = MensagemSenha.extraiRegra(erroSenha.get());
-        else
-            mensagem = MensagemEmail.extraiRegra(erroEmail.get());
-
+        if (valido) mensagem = "Credenciais validadas com sucesso";
+        else if (erroSenha.isPresent()) mensagem = MensagemSenha.extraiRegra(erroSenha.get());
+        else mensagem = MensagemEmail.extraiRegra(erroEmail.get());
         return ResponseEntity.ok(new ValidacaoResultado(valido, mensagem));
     }
 }

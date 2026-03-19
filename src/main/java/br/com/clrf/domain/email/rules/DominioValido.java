@@ -7,14 +7,17 @@ public class DominioValido implements RegraValidacao {
     @Override
     public boolean valida(String valor) {
         int indiceArroba = valor.indexOf('@');
-        if (indiceArroba <= 0 || indiceArroba == valor.length() - 1)
-            return false;
+        if (indiceArroba < 0) return false;
+        if (indiceArroba == 0) return false;
+        if (indiceArroba == valor.length() - 1) return false;
 
         String dominio = valor.substring(indiceArroba + 1);
 
-        return dominio.contains(".") &&
-                !dominio.startsWith(".") &&
-                !dominio.endsWith(".") &&
-                !dominio.contains("..");
+        if (!dominio.contains(".")) return false;
+        if (dominio.startsWith(".")) return false;
+        if (dominio.endsWith(".")) return false;
+        if (dominio.contains("..")) return false;
+        return true;
+
     }
 }
