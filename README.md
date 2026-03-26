@@ -53,8 +53,48 @@ br.com.clrf
 4. As **Rules** validam individualmente os dados
 5. O resultado é retornado via **DTO**
 
+
+![img.png](img.png)
 ---
 
+
+## Tratamento de Exceções
+
+A API utiliza um handler global (`ExcecoesGlobais`) para centralizar o tratamento de erros, garantindo padronização das respostas.
+
+### Cenários tratados:
+
+- **400 Bad Request**
+  - JSON inválido
+  - Campos obrigatórios ausentes (@NotNull)
+
+- **422 Unprocessable Entity**
+  - Regras de negócio não atendidas (senha/email inválidos)
+
+- **500 Internal Server Error**
+  - Erros inesperados
+
+---
+
+## Observabilidade (Logs)
+
+A aplicação utiliza logs para rastreabilidade do fluxo:
+
+- **INFO**
+  - Validação bem-sucedida
+
+- **WARN**
+  - Falha em regras de negócio (senha/email)
+
+- **ERROR**
+  - Exceções não tratadas
+
+Isso permite evolução futura para integração com ferramentas como:
+- ELK Stack
+- CloudWatch
+- Datadog
+
+---
 ## Tecnologias utilizadas
 
 * Java 21
