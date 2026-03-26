@@ -2,8 +2,8 @@ package br.com.clrf.domain.email.rules;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class FormatoBasicoTest {
 
@@ -32,5 +32,25 @@ class FormatoBasicoTest {
     @Test
     void deveFalharArrobaNoFinal() {
         assertFalse(regra.valida("teste@"));
+    }
+
+    @Test
+    void deveFalharSemDominio() {
+        assertFalse(regra.valida("teste@email"));
+    }
+
+    @Test
+    void deveFalharDominioInvalido() {
+        assertFalse(regra.valida("teste@email."));
+    }
+
+    @Test
+    void deveFalharMultiplosArrobas() {
+        assertFalse(regra.valida("teste@@email.com"));
+    }
+
+    @Test
+    void deveFalharStringVazia() {
+        assertFalse(regra.valida(""));
     }
 }
