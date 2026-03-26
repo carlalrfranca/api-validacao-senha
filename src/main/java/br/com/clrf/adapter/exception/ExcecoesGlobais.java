@@ -17,8 +17,10 @@ public class ExcecoesGlobais {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidacaoResultado> validarCampos(MethodArgumentNotValidException ex) {
+
         String mensagem = ex.getBindingResult().getFieldErrors().stream()
-                .map(error -> error.getDefaultMessage()).findFirst()
+                .map(error -> error.getDefaultMessage())
+                .reduce((m1, m2) -> m1 + ", " + m2)
                 .orElse("Campo inválido ou nulo");
         log.warn("Erro de validação: {}", mensagem);
         return ResponseEntity.badRequest()
