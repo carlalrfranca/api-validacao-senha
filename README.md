@@ -47,11 +47,12 @@ br.com.clrf
 
 ## Fluxo da aplicação
 
-1. O **Controller** recebe a requisição HTTP
-2. O **UseCase** executa a validação
-3. A **Policy** aplica uma lista de regras
-4. As **Rules** validam individualmente os dados
-5. O resultado é retornado via **DTO**
+1. O **Controller** recebe a requisição HTTP  e valida a estrutura do payload.
+2. O **UseCase** executa a validação das credenciais.
+3. A **Policies ** aplica uma lista de regras para senha e email.
+4. As **Rules** validam individualmente cada critério.
+5. Em caso de erro, uma exceção de regra de negócio é lançada e tratada globalmente.
+5. O resultado é retornado via **DTO** com status HTTP apropriado (200, 400, 422 ou 500).
 
 
 ![img.png](img.png)
