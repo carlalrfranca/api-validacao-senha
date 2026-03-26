@@ -1,5 +1,7 @@
 package br.com.clrf.usecase;
 
+import br.com.clrf.adapter.dto.CredenciaisEntrada;
+import br.com.clrf.adapter.exception.ExcecoesGlobais;
 import br.com.clrf.domain.comuns.policy.PoliticaRegra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class ValidadorCredenciaisServiceTest {
 
-
     private ValidadorCredenciaisService orquestrador;
 
     @Mock
@@ -22,47 +23,57 @@ class ValidadorCredenciaisServiceTest {
     @Mock
     private PoliticaRegra politicaEmail;
 
+    private String senha;
+    private String senhaInvalida;
+    private String email;
+    String emailInvalido;
+
     @BeforeEach
     void setUp() {
         orquestrador = new ValidadorCredenciaisService(politicaSenha, politicaEmail);
+        senha = "AbTp9!fok";
+        senhaInvalida = "123";
+        email = "teste@teste.com";
+        emailInvalido = "teste.com";
     }
 
     @Test
     void validaCredenciaisComEmailESenhaValidos() {
-        String email = "teste@teste.com";
-        String senha = "AbTp9!fok";
+        CredenciaisEntrada entrada = new CredenciaisEntrada(senha, email);
 
         when(politicaSenha.satisfazRegra(senha)).thenReturn(Optional.empty());
         when(politicaEmail.satisfazRegra(email)).thenReturn(Optional.empty());
 
-        Optional<String> resultadoSenha = orquestrador.
-        Optional<String> resultadoEmail = orquestrador.executaRegrasEmail(email);
-
-        assertTrue(resultadoSenha.isEmpty());
-        assertTrue(resultadoEmail.isEmpty());
+        assertDoesNotThrow(() -> orquestrador.validarCredenciais(entrada));
     }
 
     @Test
-    void deveRetornarErroQuandoSenhaInvalida() {
+    void retornaErroQuandoSenhaInvalida() {
+        CredenciaisEntrada entrada = new CredenciaisEntrada(senhaInvalida, email);
 
-        String senha = "123";
+        when(politicaSenha.satisfazRegra(senhaInvalida)).thenReturn(Optional.of("TamanhoMinimo"));
+        when(politicaEmail.satisfazRegra(email)).thenReturn(Optional.empty());
 
-        when(politicaSenha.satisfazRegra(senha))
-                .thenReturn(Optional.of("TamanhoMinimo"));
-        Optional<String> resultado = orquestrador.executaRegrasSenha(senha);
-        assertTrue(resultado.isPresent());
-        assertEquals("TamanhoMinimo", resultado.get());
+        ExcecoesGlobais.RegraNegocioException ex = assertThrows(
+                ExcecoesGlobais.RegraNegocioException.class,
+                () -> orquestrador.validarCredenciais(entrada)
+        );
+
+        assertTrue(ex.getMessage().contains("mínimo 9 caracteres"));
     }
 
     @Test
-    void deveRetornarErroQuandoEmailInvalido() {
+    void retornaErroQuandoEmailInvalido() {
+        CredenciaisEntrada entrada = new CredenciaisEntrada(senha, emailInvalido);
 
-        String email = "teste.com";
+        when(politicaSenha.satisfazRegra(senha)).thenReturn(Optional.empty());
+        when(politicaEmail.satisfazRegra(emailInvalido)).thenReturn(Optional.of("FormatoBasico"));
 
-        when(politicaEmail.satisfazRegra(email))
-                .thenReturn(Optional.of("FormatoBasico"));
-        Optional<String> resultado = orquestrador.executaRegrasEmail(email);
-        assertTrue(resultado.isPresent());
-        assertEquals("FormatoBasico", resultado.get());
+        ExcecoesGlobais.RegraNegocioException ex = assertThrows(
+                ExcecoesGlobais.RegraNegocioException.class,
+                () -> orquestrador.validarCredenciais(entrada)
+        );
+        assertTrue(ex.getMessage().toLowerCase().contains("formato"));
     }
 }
+
