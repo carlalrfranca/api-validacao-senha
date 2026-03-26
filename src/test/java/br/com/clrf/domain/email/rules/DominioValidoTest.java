@@ -15,42 +15,27 @@ class DominioValidoTest {
     }
 
     @Test
-    void devePassarComEmailValido() {
+    void passaComEmailValido() {
         assertTrue(regra.valida("teste@email.com"));
     }
 
     @Test
-    void deveFalharSemArroba() {
+    void falhaSemArroba() {
         assertFalse(regra.valida("testeemail.com"));
     }
 
     @Test
-    void deveFalharArrobaNoInicio() {
+    void falhaArrobaNoInicio() {
         assertFalse(regra.valida("@email.com"));
     }
 
     @Test
-    void deveFalharArrobaNoFinal() {
+    void falhaArrobaNoFinal() {
         assertFalse(regra.valida("teste@"));
     }
 
-//    @Test
-//    void deveFalharSemPontoNoDominio() {
-//        assertFalse(regra.valida("teste@email"));
-//    }
-//
-//    @Test
-//    void deveFalharDominioComecandoComPonto() {
-//        assertFalse(regra.valida("teste@.email.com"));
-//    }
-//
-//    @Test
-//    void deveFalharDominioTerminandoComPonto() {
-//        assertFalse(regra.valida("teste@email."));
-//    }
-
     @Test
-    void deveFalharComPontosDuplicados() {
+    void falhaComPontosDuplicados() {
         assertFalse(regra.valida("teste@email..com"));
     }
 }

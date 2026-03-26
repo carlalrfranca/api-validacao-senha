@@ -15,42 +15,42 @@ class FormatoBasicoTest {
     }
 
     @Test
-    void devePassarQuandoFormatoValido() {
+    void passaQuandoFormatoValido() {
         assertTrue(regra.valida("teste@email.com"));
     }
 
     @Test
-    void deveFalharSemArroba() {
+    void falhaSemArroba() {
         assertFalse(regra.valida("testeemail.com"));
     }
 
     @Test
-    void deveFalharArrobaNoInicio() {
+    void falhaArrobaNoInicio() {
         assertFalse(regra.valida("@email.com"));
     }
 
     @Test
-    void deveFalharArrobaNoFinal() {
+    void falhaArrobaNoFinal() {
         assertFalse(regra.valida("teste@"));
     }
 
     @Test
-    void deveFalharSemDominio() {
+    void falhaSemDominio() {
         assertFalse(regra.valida("teste@email"));
     }
 
     @Test
-    void deveFalharDominioInvalido() {
+    void falhaDominioInvalido() {
         assertFalse(regra.valida("teste@email."));
     }
 
     @Test
-    void deveFalharMultiplosArrobas() {
+    void falhaMultiplosArrobas() {
         assertFalse(regra.valida("teste@@email.com"));
     }
 
     @Test
-    void deveFalharStringVazia() {
+    void falhaStringVazia() {
         assertFalse(regra.valida(""));
     }
 }
