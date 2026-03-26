@@ -248,6 +248,21 @@ O projeto utiliza **SonarQube** para análise de qualidade:
 
 ---
 
+## Evoluções Futuras
+
+O projeto foi estruturado para permitir expansão para cenários de produção. Algumas melhorias planejadas incluem:
+
+- Autenticação e autorização (ex: JWT)
+- Persistência segura de credenciais com hash (ex: BCrypt)
+- Proteção contra uso indevido (rate limiting, mitigação de brute force, WAF)
+- Auditoria e rastreabilidade de requisições (correlation ID, logs estruturados)
+- Integração com ferramentas de observabilidade (ELK Stack, CloudWatch)
+- Deploy em ambiente cloud com suporte a escalabilidade (ex: AWS Elastic Beanstalk)
+
+Essas evoluções não foram implementadas neste momento por não serem necessárias para o escopo atual, mas foram consideradas no desenho da solução.
+
+---
+
 ## Referências
 
 * Sobre o case: https://github.com/itidigital/backend-challenge

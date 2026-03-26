@@ -1,7 +1,7 @@
 package br.com.clrf.adapter.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public record CredenciaisEntrada(
-        @NotNull(message = "Senha não pode ser nula")String senha,
-        @NotNull(message = "Email não podem ser nulo")String email) {}
+        @NotBlank(message = "Senha não pode ser vazia ou nula") String senha,
+        @NotBlank(message = "Email não pode ser vazio ou nulo") String email) {}

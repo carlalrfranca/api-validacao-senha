@@ -35,7 +35,7 @@ class ValidadorCredenciaisServiceTest {
         when(politicaSenha.satisfazRegra(senha)).thenReturn(Optional.empty());
         when(politicaEmail.satisfazRegra(email)).thenReturn(Optional.empty());
 
-        Optional<String> resultadoSenha = orquestrador.executaRegrasSenha(senha);
+        Optional<String> resultadoSenha = orquestrador.
         Optional<String> resultadoEmail = orquestrador.executaRegrasEmail(email);
 
         assertTrue(resultadoSenha.isEmpty());
@@ -65,7 +65,4 @@ class ValidadorCredenciaisServiceTest {
         assertTrue(resultado.isPresent());
         assertEquals("FormatoBasico", resultado.get());
     }
-
-
-
 }

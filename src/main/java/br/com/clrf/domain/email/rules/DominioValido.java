@@ -13,11 +13,11 @@ public class DominioValido implements RegraValidacao {
 
         String dominio = valor.substring(indiceArroba + 1);
 
-        if (!dominio.contains(".")) return false;
-        if (dominio.startsWith(".")) return false;
-        if (dominio.endsWith(".")) return false;
         if (dominio.contains("..")) return false;
         return true;
 
     }
 }
+
+
+

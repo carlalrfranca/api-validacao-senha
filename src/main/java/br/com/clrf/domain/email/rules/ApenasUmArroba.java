@@ -6,13 +6,16 @@ public class ApenasUmArroba implements RegraValidacao {
 
     @Override
     public boolean valida(String valor) {
+
         int cont = 0;
         int arrobaCont = 0;
 
-        while(cont < valor.length()) {
+        while (cont < valor.length()) {
             if (valor.charAt(cont) == '@') {
                 arrobaCont++;
-            } cont++;
-        } return arrobaCont == 1;
+            }
+            cont++;
+        }
+        return arrobaCont == 1;
     }
 }
