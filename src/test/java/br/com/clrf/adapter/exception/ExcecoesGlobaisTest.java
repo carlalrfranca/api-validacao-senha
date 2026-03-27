@@ -1,13 +1,14 @@
 package br.com.clrf.adapter.exception;
 
-import br.com.clrf.adapter.dto.ValidacaoResultado;
+import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import java.util.concurrent.TimeoutException;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import br.com.clrf.adapter.dto.ValidacaoResultado;
 
 class ExcecoesGlobaisTest {
 

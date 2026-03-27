@@ -1,7 +1,5 @@
 package br.com.clrf.usecase;
 
-import br.com.clrf.adapter.dto.CredenciaisEntrada;
-import br.com.clrf.adapter.exception.ExcecoesGlobais;
 import br.com.clrf.domain.comuns.policy.PoliticaRegra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +20,6 @@ class ValidadorCredenciaisServiceTest {
 
     @Mock
     private PoliticaRegra politicaEmail;
-
     private String senha;
     private String senhaInvalida;
     private String email;
@@ -39,41 +36,30 @@ class ValidadorCredenciaisServiceTest {
 
     @Test
     void validaCredenciaisComEmailESenhaValidos() {
-        CredenciaisEntrada entrada = new CredenciaisEntrada(senha, email);
-
         when(politicaSenha.satisfazRegra(senha)).thenReturn(Optional.empty());
         when(politicaEmail.satisfazRegra(email)).thenReturn(Optional.empty());
 
-        assertDoesNotThrow(() -> orquestrador.validarCredenciais(entrada));
+        Optional<String> erroSenha = orquestrador.executaRegrasSenha(senha);
+        Optional<String> erroEmail = orquestrador.executaRegrasEmail(email);
+
+        assertTrue(erroSenha.isEmpty());
+        assertTrue(erroEmail.isEmpty());
     }
 
     @Test
     void retornaErroQuandoSenhaInvalida() {
-        CredenciaisEntrada entrada = new CredenciaisEntrada(senhaInvalida, email);
-
         when(politicaSenha.satisfazRegra(senhaInvalida)).thenReturn(Optional.of("TamanhoMinimo"));
-        when(politicaEmail.satisfazRegra(email)).thenReturn(Optional.empty());
-
-        ExcecoesGlobais.RegraNegocioException ex = assertThrows(
-                ExcecoesGlobais.RegraNegocioException.class,
-                () -> orquestrador.validarCredenciais(entrada)
-        );
-
-        assertTrue(ex.getMessage().contains("mínimo 9 caracteres"));
+        Optional<String> erroSenha = orquestrador.executaRegrasSenha(senhaInvalida);
+        assertTrue(erroSenha.isPresent());
+        assertEquals("TamanhoMinimo", erroSenha.get());
     }
 
     @Test
     void retornaErroQuandoEmailInvalido() {
-        CredenciaisEntrada entrada = new CredenciaisEntrada(senha, emailInvalido);
-
-        when(politicaSenha.satisfazRegra(senha)).thenReturn(Optional.empty());
         when(politicaEmail.satisfazRegra(emailInvalido)).thenReturn(Optional.of("FormatoBasico"));
-
-        ExcecoesGlobais.RegraNegocioException ex = assertThrows(
-                ExcecoesGlobais.RegraNegocioException.class,
-                () -> orquestrador.validarCredenciais(entrada)
-        );
-        assertTrue(ex.getMessage().toLowerCase().contains("formato"));
+        Optional<String> erroEmail = orquestrador.executaRegrasEmail(emailInvalido);
+        assertTrue(erroEmail.isPresent());
+        assertEquals("FormatoBasico", erroEmail.get());
     }
 }
 
