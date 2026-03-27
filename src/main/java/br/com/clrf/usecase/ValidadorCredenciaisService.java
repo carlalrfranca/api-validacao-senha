@@ -1,15 +1,10 @@
 package br.com.clrf.usecase;
 
-import br.com.clrf.adapter.dto.CredenciaisEntrada;
-import br.com.clrf.adapter.exception.ExcecoesGlobais.RegraNegocioException;
-import br.com.clrf.adapter.response.MensagemEmail;
-import br.com.clrf.adapter.response.MensagemSenha;
 import br.com.clrf.domain.comuns.policy.PoliticaRegra;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -19,20 +14,20 @@ public class ValidadorCredenciaisService {
     private final PoliticaRegra politicaSenha;
     private final PoliticaRegra politicaEmail;
 
-    public void validarCredenciais(CredenciaisEntrada credenciais) {
-        List<String> erros = new ArrayList<>();
+    public Optional<String> executaRegrasSenha(String senha) {
+        Optional<String> regraNaoSatisfeita = politicaSenha.satisfazRegra(senha);
 
-        politicaSenha.satisfazRegra(credenciais.senha())
-                .ifPresent(e -> erros.add(MensagemSenha.extraiRegra(e)));
+        if (regraNaoSatisfeita.isPresent())
+                log.warn("Senha inválida: regra = {}", regraNaoSatisfeita.get());
+        return regraNaoSatisfeita;
+    }
 
-        politicaEmail.satisfazRegra(credenciais.email())
-                .ifPresent(e -> erros.add(MensagemEmail.extraiRegra(e)));
+    public Optional<String> executaRegrasEmail(String email) {
+        Optional<String> regraNaoSatisfeita = politicaEmail.satisfazRegra(email);
 
-        if (!erros.isEmpty()) {
-            log.warn("Erros de validação: {}", erros);
-            throw new RegraNegocioException(String.join("; ", erros));
+        if (regraNaoSatisfeita.isPresent()) {
+            log.warn("Email inválido: regra = {}", regraNaoSatisfeita.get());
         }
-
-        log.info("Credenciais atendem todas as regras de negócio");
+        return regraNaoSatisfeita;
     }
 }

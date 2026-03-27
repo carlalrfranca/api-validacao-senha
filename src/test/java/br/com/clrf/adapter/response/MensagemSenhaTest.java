@@ -9,12 +9,14 @@ class MensagemSenhaTest {
     @Test
     void retornaMensagemQuandoTemRegra() {
         String mensagem = MensagemSenha.extraiRegra("TEM_DIGITO");
+
         assertNotNull(mensagem);
     }
 
     @Test
     void retornaMensagemQuandoNaoTemRegra() {
         String mensagem = MensagemSenha.extraiRegra("INVALIDA");
+
         assertEquals("Regra de validação desconhecida.", mensagem);
     }
 }
