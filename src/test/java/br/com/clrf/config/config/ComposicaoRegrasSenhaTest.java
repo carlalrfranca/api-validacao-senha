@@ -1,5 +1,6 @@
-package br.com.clrf.config;
+package br.com.clrf.config.config;
 
+import br.com.clrf.config.ComposicaoRegrasSenha;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

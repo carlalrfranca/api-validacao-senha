@@ -1,11 +1,11 @@
 package br.com.clrf.adapter.controller;
 
 import br.com.clrf.adapter.dto.CredenciaisEntrada;
-import br.com.clrf.adapter.exception.ExcecoesGlobais;
 import br.com.clrf.usecase.ValidadorCredenciaisService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ValidacaoControllerTest {
@@ -27,24 +27,25 @@ class ValidacaoControllerTest {
 
     @Test
     void retornaSucesso() {
-        Mockito.doNothing().when(service).validarCredenciais(entradaValida);
+        Mockito.when(service.executaRegrasSenha("AbTp9!fok")).thenReturn(Optional.empty());
+        Mockito.when(service.executaRegrasEmail("teste@email.com")).thenReturn(Optional.empty());
         var resposta = controller.validar(entradaValida);
         assertTrue(resposta.getBody().valido());
     }
 
     @Test
     void retornaErroSenha() {
-        Mockito.doThrow(new ExcecoesGlobais.RegraNegocioException("erro senha"))
-                .when(service).validarCredenciais(entradaSenhaInvalida);
-        assertThrows(ExcecoesGlobais.RegraNegocioException.class, () -> controller.validar(entradaSenhaInvalida)
-        );
+        Mockito.when(service.executaRegrasSenha("123")).thenReturn(Optional.of("TamanhoMinimo"));
+        Mockito.when(service.executaRegrasEmail("teste@email.com")).thenReturn(Optional.empty());
+        var resposta = controller.validar(entradaSenhaInvalida);
+        assertFalse(resposta.getBody().valido());
     }
 
     @Test
     void retornaErroEmail() {
-        Mockito.doThrow(new ExcecoesGlobais.RegraNegocioException("erro email"))
-                .when(service).validarCredenciais(entradaEmailInvalido);
-        assertThrows(ExcecoesGlobais.RegraNegocioException.class, () -> controller.validar(entradaEmailInvalido)
-        );
+        Mockito.when(service.executaRegrasSenha("AbTp9!fok")).thenReturn(Optional.empty());
+        Mockito.when(service.executaRegrasEmail("teste.com")).thenReturn(Optional.of("FormatoBasico"));
+        var resposta = controller.validar(entradaEmailInvalido);
+        assertFalse(resposta.getBody().valido());
     }
 }
