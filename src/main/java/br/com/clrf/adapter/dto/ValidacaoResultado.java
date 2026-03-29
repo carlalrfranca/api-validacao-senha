@@ -1,3 +1,9 @@
 package br.com.clrf.adapter.dto;
 
-public record ValidacaoResultado(boolean valido, String mensagem) {}
+import java.util.List;
+
+public record ValidacaoResultado(
+        boolean valido,
+        List<String> mensagens
+) {}
+

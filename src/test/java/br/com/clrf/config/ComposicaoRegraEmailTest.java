@@ -1,4 +1,4 @@
-package br.com.clrf.config.config;
+package br.com.clrf.config;
 
 import br.com.clrf.config.ComposicaoRegraEmail;
 import org.junit.jupiter.api.BeforeEach;
