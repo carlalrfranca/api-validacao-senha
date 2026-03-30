@@ -1,6 +1,7 @@
 package br.com.clrf.usecase;
 
 import br.com.clrf.domain.comuns.policy.PoliticaRegra;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ValidadorCredenciaisService {
 
+    @Resource(name = "politicaSenha")
     private final PoliticaRegra politicaSenha;
+
+    @Resource(name = "politicaEmail")
     private final PoliticaRegra politicaEmail;
 
     public Optional<String> executaRegrasSenha(String senha) {

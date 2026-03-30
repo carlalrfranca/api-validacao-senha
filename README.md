@@ -28,19 +28,23 @@ Controller → UseCase → Policy → Rules → DTO
 
 ```text
 br.com.clrf
-│
-├── adapter
-│   ├── controller
-│   ├── dto
-│   └── response
-│
-├── domain
-│   ├── comuns
-│   ├── email
-│   └── senha
-│
-├── usecase
-├── config
+        ├── adapter
+        │   ├── controller
+        │   ├── dto
+        │   ├── exception
+        │   └── response
+        ├── config
+        ├── domain
+        │   ├── comuns
+        │   │   ├───policy
+        │   │   └───rules
+        │   ├── email
+        │   │   └───rules
+        │   └── senha
+        │   │   └───rules
+        └───usecase
+
+
 ```
 
 ---
@@ -248,16 +252,45 @@ O projeto utiliza **SonarQube** para análise de qualidade:
 
 ---
 
+## Testes
+
+O projeto possui cobertura de testes unitários, validando regras de negócio e cenários de borda.
+
+- Cobertura de instruções: ~99%
+- Cobertura de branches: 100%
+- Testes focados nas regras de validação de email e senha
+
+Ferramentas utilizadas:
+
+- JUnit 5
+- Jacoco
+
+<img src="img_1.png" width="600"/>
+
+---
+
 ## Evoluções Futuras
 
 O projeto foi estruturado para permitir expansão para cenários de produção. Algumas melhorias planejadas incluem:
 
+### Segurança
+
 - Autenticação e autorização (ex: JWT)
 - Persistência segura de credenciais com hash (ex: BCrypt)
 - Proteção contra uso indevido (rate limiting, mitigação de brute force, WAF)
+
+### Observabilidade
+
 - Auditoria e rastreabilidade de requisições (correlation ID, logs estruturados)
 - Integração com ferramentas de observabilidade (ELK Stack, CloudWatch)
+
+### Infraestrutura
+
 - Deploy em ambiente cloud com suporte a escalabilidade (ex: AWS Elastic Beanstalk)
+
+### Validação de Domínio
+
+- Evolução da validação de TLD para utilização da lista oficial da IANA, eliminando a necessidade de manutenção manual.
 
 Essas evoluções não foram implementadas neste momento por não serem necessárias para o escopo atual, mas foram consideradas no desenho da solução.
 
@@ -265,19 +298,20 @@ Essas evoluções não foram implementadas neste momento por não serem necessá
 
 ## Referências
 
-* Sobre o case: https://github.com/itidigital/backend-challenge
+* Sobre o case: 
+  * https://github.com/itidigital/backend-challenge
+  
 * Testes unitários:
-
   * https://zup.com.br/blog/testes-unitarios/
   * https://www.freecodecamp.org/news/java-unit-testing/
+
 * Teste unitário vs integrado:
-
   * https://pt.stackoverflow.com/questions/115146/qual-a-diferen%C3%A7a-entre-teste-unit%C3%A1rio-e-teste-integrado
+
 * Princípios SOLID:
-
   * https://pt.stackoverflow.com/questions/178718/o-que-s%C3%A3o-os-princ%C3%ADpios-solid
-* Composição:
 
+* Composição:
   * https://www.geeksforgeeks.org/java/composite-design-pattern-in-java/
 
 ---

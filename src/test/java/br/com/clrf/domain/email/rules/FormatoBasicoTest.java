@@ -50,6 +50,19 @@ class FormatoBasicoTest {
     }
 
     @Test
+    void falhaDominioComecandoComPonto() {
+        assertFalse(regra.valida("teste@.email.com"));
+    }
+
+    @Test
+    void falhaLocalVazioOuEspaco() { assertFalse(regra.valida(" @email.com"));
+    }
+
+    @Test
+    void falhaDominioComPontosConsecutivos() { assertFalse(regra.valida("teste@email..com"));
+    }
+
+    @Test
     void falhaStringVazia() {
         assertFalse(regra.valida(""));
     }
