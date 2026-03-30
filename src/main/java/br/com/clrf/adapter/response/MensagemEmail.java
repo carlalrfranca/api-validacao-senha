@@ -11,7 +11,7 @@ public enum MensagemEmail {
     APENAS_UM_ARROBA("ApenasUmArroba","O email deve conter exatamente um caractere '@'."),
     DOMINIO_VALIDO("DominioValido","O email deve conter um domínio válido após o '@'."),
     SEM_DUPLICIDADE_PONTOS("SemDuplicidadePontos","O email não deve conter pontos consecutivos."),
-    TLD_VALIDO("TldValido","O email deve conter um TLD válido (por exemplo, '.com', '.net', '.org')."),
+    TLD_VALIDO("TldValido","O email deve conter um TLD válido (por exemplo: '.com', '.net', '.org')."),
     SEM_ESPACAMENTO("SemEspacamento","O email não deve conter espaços em branco.");
 
     private final String nomeRegra;

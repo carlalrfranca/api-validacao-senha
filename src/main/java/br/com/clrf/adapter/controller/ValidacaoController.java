@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,25 +29,24 @@ public class ValidacaoController {
 
         Optional<String> erroEmail =
                 validadorCredenciaisService.executaRegrasEmail(credenciais.email());
-        String erros = "";
 
-        if (erroSenha.isPresent()) {
-            erros += MensagemSenha.extraiRegra(erroSenha.get());
-        }
-        if (erroEmail.isPresent()) {
-            if (!erros.isEmpty()) {
-                erros += "; ";
-            }
-            erros += MensagemEmail.extraiRegra(erroEmail.get());
-        }
+        List<String> erros = new ArrayList<>();
+
+        erroSenha.ifPresent(e ->
+                erros.add(MensagemSenha.extraiRegra(e))
+        );
+
+        erroEmail.ifPresent(e ->
+                erros.add(MensagemEmail.extraiRegra(e))
+        );
+
         if (!erros.isEmpty()) {
             return ResponseEntity.unprocessableEntity()
                     .body(new ValidacaoResultado(false, erros));
         }
+
         return ResponseEntity.ok(
-                new ValidacaoResultado(true, "Credenciais validadas com sucesso")
+                new ValidacaoResultado(true, List.of("Credenciais validadas com sucesso"))
         );
     }
 }
-
-

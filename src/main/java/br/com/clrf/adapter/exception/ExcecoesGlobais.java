@@ -9,6 +9,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 @Slf4j
@@ -18,47 +19,45 @@ public class ExcecoesGlobais {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidacaoResultado> validarCampos(MethodArgumentNotValidException ex) {
 
-        String mensagem = ex.getBindingResult().getFieldErrors().stream()
+        List<String> mensagens = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getDefaultMessage())
-                .reduce((m1, m2) -> m1 + ", " + m2)
-                .orElse("Campo inválido ou nulo");
-        log.warn("Erro de validação: {}", mensagem);
+                .toList();
+        log.warn("Erro de validação: {}", mensagens);
         return ResponseEntity.badRequest()
-                .body(new ValidacaoResultado(false, mensagem));
+                .body(new ValidacaoResultado(false, mensagens));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ValidacaoResultado> validarCampos(HttpMessageNotReadableException ex) {
         log.warn("JSON inválido ou payload vazio: {}", ex.getMessage());
         return ResponseEntity.badRequest()
-                .body(new ValidacaoResultado(false, "JSON inválido ou payload vazio"));
+                .body(new ValidacaoResultado(false, List.of("JSON inválido ou payload vazio")));
     }
 
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<ValidacaoResultado> regraNegocio(RegraNegocioException ex) {
         log.warn("Regra de negócio violada: {}", ex.getMensagem());
         return ResponseEntity.unprocessableEntity()
-                .body(new ValidacaoResultado(false, ex.getMensagem()));
+                .body(new ValidacaoResultado(false, List.of(ex.getMensagem())));
     }
 
     @ExceptionHandler(TimeoutException.class)
     public ResponseEntity<ValidacaoResultado> timeout(TimeoutException ex) {
         log.warn("Serviço indisponível: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(new ValidacaoResultado(false, "Serviço indisponível no momento"));
+                .body(new ValidacaoResultado(false, List.of("Serviço indisponível no momento")));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ValidacaoResultado> erroGenerico(Exception ex) {
         log.error("Erro interno", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ValidacaoResultado(false, "Erro interno no servidor"));
+                .body(new ValidacaoResultado(false, List.of("Erro interno no servidor")));
     }
 
     @Getter
     public static class RegraNegocioException extends RuntimeException {
         private final String mensagem;
-
         public RegraNegocioException(String mensagem) {
             super(mensagem);
             this.mensagem = mensagem;

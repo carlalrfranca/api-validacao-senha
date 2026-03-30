@@ -3,6 +3,7 @@ package br.com.clrf.domain.email.rules;
 import br.com.clrf.domain.comuns.rules.RegraValidacao;
 
 public class FormatoBasico implements RegraValidacao {
+
     @Override
     public boolean valida(String valor) {
 
@@ -15,6 +16,7 @@ public class FormatoBasico implements RegraValidacao {
 
         if (!dominio.contains(".")) return false;
         if (dominio.startsWith(".") || dominio.endsWith(".")) return false;
+        if (dominio.contains("..")) return false;
 
         return !local.isBlank();
     }

@@ -26,7 +26,7 @@ class ExcecoesGlobaisTest {
         var response = handler.validarCampos(ex);
         assertEquals(400, response.getStatusCode().value());
         assertFalse(response.getBody().valido());
-        assertEquals("Email inválido", response.getBody().mensagem());
+        assertEquals("Email inválido", response.getBody().mensagens().get(0));
     }
 
     @Test
@@ -35,7 +35,7 @@ class ExcecoesGlobaisTest {
         ResponseEntity<ValidacaoResultado> response = handler.regraNegocio(ex);
         assertEquals(422, response.getStatusCode().value());
         assertFalse(response.getBody().valido());
-        assertEquals("erro regra", response.getBody().mensagem());
+        assertEquals("erro regra", response.getBody().mensagens().get(0));
     }
 
     @Test
@@ -44,7 +44,7 @@ class ExcecoesGlobaisTest {
         ResponseEntity<ValidacaoResultado> response = handler.validarCampos(ex);
         assertEquals(400, response.getStatusCode().value());
         assertFalse(response.getBody().valido());
-        assertEquals("JSON inválido ou payload vazio", response.getBody().mensagem());
+        assertEquals("JSON inválido ou payload vazio", response.getBody().mensagens().get(0));
     }
 
     @Test
@@ -53,7 +53,7 @@ class ExcecoesGlobaisTest {
         ResponseEntity<ValidacaoResultado> response = handler.timeout(ex);
         assertEquals(503, response.getStatusCode().value());
         assertFalse(response.getBody().valido());
-        assertEquals("Serviço indisponível no momento", response.getBody().mensagem());
+        assertEquals("Serviço indisponível no momento", response.getBody().mensagens().get(0));
     }
 
     @Test
@@ -62,6 +62,6 @@ class ExcecoesGlobaisTest {
         ResponseEntity<ValidacaoResultado> response = handler.erroGenerico(ex);
         assertEquals(500, response.getStatusCode().value());
         assertFalse(response.getBody().valido());
-        assertEquals("Erro interno no servidor", response.getBody().mensagem());
+        assertEquals("Erro interno no servidor", response.getBody().mensagens().get(0));
     }
 }
